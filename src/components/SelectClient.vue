@@ -60,6 +60,11 @@
           </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="200" class="pagination">
+    </el-pagination>
   </div>
 </template>
 
@@ -92,6 +97,30 @@
           order: '4',
           name: '王小虎',
           money: '20000'
+        },{
+          order: '5',
+          name: '王小虎',
+          money: '20000'
+        },{
+          order: '6',
+          name: '王小虎',
+          money: '20000'
+        },{
+          order: '7',
+          name: '王小虎',
+          money: '20000'
+        },{
+          order: '8',
+          name: '王小虎',
+          money: '20000'
+        },{
+          order: '9',
+          name: '王小虎',
+          money: '20000'
+        },{
+          order: '10',
+          name: '王小虎',
+          money: '20000'
         }]
       }
     },
@@ -105,5 +134,9 @@
 
 <style scoped lang="stylus">
   @import "../common/css/base.styl"
+  .select
+    position relative
+    .pagination
+      margin-top 200px
 
 </style>

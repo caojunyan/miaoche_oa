@@ -4,10 +4,10 @@
    <my-left></my-left>
    <div class="main">
      <!--面包屑导航-->
-     <el-breadcrumb separator-class="el-icon-arrow-right" class="bread">
+     <!--<el-breadcrumb separator-class="el-icon-arrow-right" class="bread">
        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
        <el-breadcrumb-item v-for="item in breadcrumb" :to="item.path">{{item.value}}</el-breadcrumb-item>
-     </el-breadcrumb>
+     </el-breadcrumb>-->
      <router-view></router-view>
    </div>
  </div>
