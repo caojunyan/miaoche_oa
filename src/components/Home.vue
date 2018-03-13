@@ -4,10 +4,12 @@
    <my-left></my-left>
    <div class="main">
      <!--面包屑导航-->
-     <!--<el-breadcrumb separator-class="el-icon-arrow-right" class="bread">
-       <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-       <el-breadcrumb-item v-for="item in breadcrumb" :to="item.path">{{item.value}}</el-breadcrumb-item>
-     </el-breadcrumb>-->
+     <div class="bread">
+       <el-breadcrumb separator-class="el-icon-arrow-right" >
+         <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+         <el-breadcrumb-item v-for="(item,index) in breadcrumb" :to="item.path" :keys="index">{{item.value}}</el-breadcrumb-item>
+       </el-breadcrumb>
+     </div>
      <router-view></router-view>
    </div>
  </div>
@@ -27,21 +29,29 @@ export default {
     MyHeader,
     MyLeft
   },
-  beforeRouteUpdata(to,from,next){
+  /*beforeRouteUpdata(to,from,next){
     this.breadcrumb[0] = {
       value: to.meta.title,
       path: to.path
     };
     next()
+  },*/
+  watch:{
+    "$route":"fetchDate"
   },
   mounted(){
-    this.breadcrumb[0]={
+  /*  this.breadcrumb[0]={
       value:this.$route.meta.title,
       path:this.$route.path
-    };
+    };*/
   },
   methods: {
-
+    fetchDate(){
+      this.breadcrumb[0]={
+        value:this.$route.meta.title,
+        path:this.$route.path
+      };
+    }
   }
 }
 </script>
@@ -50,13 +60,23 @@ export default {
 <style scoped lang="stylus">
   @import "../common/css/base.styl"
 .main
-  position fixed
   left:235px
   top:85px;
+  position:absolute;
+  right:0;
+  bottom:0;  //left,top,right,bottom都为0，充满真个页面
+  overflow-y:auto;
+  overflow-x:hidden
   .bread
     width 100%
     height 40px
     line-height 40px
-    span
-      font-size 16px
+    margin-bottom 20px
+    .el-breadcrumb
+      height 40px
+      span
+        display inline-block
+        height 40px
+        line-height 40px
+
 </style>

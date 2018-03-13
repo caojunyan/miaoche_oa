@@ -11,60 +11,64 @@
         <el-button type="primary" @click="onSubmit">显示全部</el-button>
       </el-form-item>
     </el-form>
-    <el-table
-      :data="tableData"
-      stripe
-      style="width: 100%">
-      <el-table-column
-        prop="order"
-        label="#"
-        width="40">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="客户姓名"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="money"
-        label="借款金额"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="data"
-        label="还款日期"
-        width="250">
-      </el-table-column>
-      <el-table-column
-        prop="way"
-        label="借款方式"
-        width="250">
-      </el-table-column>
-      <el-table-column
-        prop="month"
-        label="借款期数"
-        width="150">
-      </el-table-column>
-      <el-table-column
-        prop="saleman"
-        label="业务员"
-        width="200">
-      </el-table-column>
-      <el-table-column
-        prop="operate"
-        label="操作"
-        width="200">
-          <template scope="scope">
+    <div class="table">
+      <el-table
+        :data="tableData"
+        stripe
+        style="width: 100%">
+        <el-table-column
+          prop="order"
+          label="#"
+          width="40">
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="客户姓名"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="money"
+          label="借款金额"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="data"
+          label="还款日期"
+          width="250">
+        </el-table-column>
+        <el-table-column
+          prop="way"
+          label="借款方式"
+          width="250">
+        </el-table-column>
+        <el-table-column
+          prop="month"
+          label="借款期数"
+          width="150">
+        </el-table-column>
+        <el-table-column
+          prop="saleman"
+          label="业务员"
+          width="200">
+        </el-table-column>
+        <el-table-column
+          prop="operate"
+          label="操作"
+          width="200">
+          <template slot-scope="scope">
             <el-button size="small" @click="">查看</el-button>
             <el-button size="small" @click="">修改</el-button>
           </template>
-      </el-table-column>
-    </el-table>
-    <el-pagination
-      background
-      layout="prev, pager, next"
-      :total="200" class="pagination">
-    </el-pagination>
+        </el-table-column>
+      </el-table>
+    </div>
+    <div class="page">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="200" class="pagination">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -73,8 +77,7 @@
     data() {
       return {
         formInline: {
-          user: '',
-          region: ''
+          user: ''
         },
         tableData: [{
           order: '1',
@@ -134,9 +137,13 @@
 
 <style scoped lang="stylus">
   @import "../common/css/base.styl"
-  .select
-    position relative
-    .pagination
-      margin-top 200px
-
+.select
+  .table
+    height 620px
+  .page
+    width 900px
+    margin 0 auto
+    margin-top 20px
+    pagination
+      width 400px
 </style>

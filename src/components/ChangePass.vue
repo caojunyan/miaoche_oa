@@ -34,7 +34,7 @@
         var oldPass=this.ruleForm.oldPass;
         var newPass=this.ruleForm.newPass;
         var confirmNewPass=this.ruleForm.confirmNewPass;
-        var pass=localStorage.getItem('password')
+        var pass=localStorage.getItem('password');
         if(oldPass==pass&&newPass==confirmNewPass!=((newPass==""||newPass==null))){
           this.$alert('修改密码成功，回到首页', '', {
             confirmButtonText: '确定',
