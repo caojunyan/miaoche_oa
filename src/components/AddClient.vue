@@ -1,6 +1,6 @@
 <template>
-<div class="add">
-  客户录入
+  <div class="add">
+  客户录入页面
 </div>
 </template>
 

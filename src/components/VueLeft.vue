@@ -3,7 +3,6 @@
       <el-row class="tac left-nav">
         <el-col :span="24">
           <el-menu
-            :default-active="$route.path"
             class="el-menu-vertical-demo"
             @open="handleOpen"
             @close="handleClose"
@@ -25,7 +24,6 @@
                 <el-menu-item index="1-2">
                   <router-link :to="{path:'/home/addClient'}">客户录入</router-link>
                 </el-menu-item>
-                <!--<el-menu-item index="1-3">选项3</el-menu-item>-->
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="2">
@@ -94,6 +92,12 @@
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
+          <!--<el-menu :default-active="defaultActive" class="el-menu-vertical-demo" theme="dark">
+            <el-submenu v-for="(item,index) in this.$router.options.routes[1].children" :index="item.name" v-if="!item.hidden">
+              <template slot="title">{{item.meta.title}}</template>
+              <el-menu-item v-for="(nav,number) in item.children" :index="nav.name" @click="toUrl(nav)">{{nav.meta.title}}</el-menu-item>
+            </el-submenu>
+          </el-menu>-->
         </el-col>
       </el-row>
     </div>
@@ -104,7 +108,7 @@
     name: 'Home',
     data(){
       return {
-
+        defaultActive: this.$route.name,
       }
     },
     methods: {
@@ -113,7 +117,10 @@
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
-      }
+      },
+      toUrl: function(item) {
+        this.$router.push({ name: item.name });
+      },
     }
   }
 </script>

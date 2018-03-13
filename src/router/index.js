@@ -26,21 +26,31 @@ export default new Router({
       path:'/home',
       name:'Home',
       component:Home,
+      redirect: '/home/selectClient',
       children:[
         {
           path:'changePass',
           name:'changepass',
-          component:ChangePass
+          component:ChangePass,
+          meta: {
+            title: '修改密码'
+          },
         },
         {
           path:'selectClient',
           name:'selectClient',
-          component:SelectClient
+          component:SelectClient,
+          meta: {
+            title: '客户查询'
+          },
         },
         {
           path:'addClient',
           name:'addClient',
-          component:AddClient
+          component:AddClient,
+          meta: {
+            title: '客户录入'
+          },
         },
       ]
     },
