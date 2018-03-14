@@ -7,16 +7,14 @@
           <el-form-item label="客户姓名" prop="name">
             <el-input v-model="customerForm.name"></el-input>
           </el-form-item>
-
           <el-form-item label="业务员" prop="staff">
             <el-select v-model="customerForm.group" placeholder="请选择组别">
-              <el-option v-for="(group,index) in groups" :label="group" :value="group"></el-option>
+              <el-option v-for="(group,index) in groups" :label="group" :value="group" :key="index"></el-option>
             </el-select>
             <el-select v-model="customerForm.staff" placeholder="请选择业务员">
-              <el-option v-for="(staff,index) in staffs" :label="staff" :value="staff"></el-option>
+              <el-option v-for="(staff,index) in staffs" :label="staff" :value="staff" :key="index"></el-option>
             </el-select>
           </el-form-item>
-
           <el-form-item label="性别" prop="sex">
             <el-select v-model="customerForm.sex">
               <el-option label="男" value="男"></el-option>
@@ -40,7 +38,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="学历" prop="education">
-            <el-select v-model="customerForm.education">
+            <el-select v-model="customerForm.education" placeholder="请选择">
               <el-option label="中专（含一下）" value="中专（含一下）"></el-option>
               <el-option label="大专" value="大专"></el-option>
               <el-option label="本科" value="本科"></el-option>
@@ -54,7 +52,7 @@
             <el-input v-model="customerForm.address"></el-input>
           </el-form-item>
           <el-form-item label="住宅类型" prop="housingType">
-            <el-select v-model="customerForm.housingType">
+            <el-select v-model="customerForm.housingType" placeholder="请选择">
               <el-option label="自有房产" value="自有房产"></el-option>
               <el-option label="亲戚房" value="亲戚房"></el-option>
               <el-option label="租房" value="租房"></el-option>
@@ -68,7 +66,7 @@
             <el-input v-model="customerForm.industry"></el-input>
           </el-form-item>
           <el-form-item label="单位性质" prop="comType">
-            <el-select v-model="customerForm.comType">
+            <el-select v-model="customerForm.comType" placeholder="请选择">
               <el-option label="政府职能部门" value="政府职能部门"></el-option>
               <el-option label="事业单位" value="事业单位"></el-option>
               <el-option label="国企" value="国企"></el-option>
@@ -82,7 +80,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="职位" prop="position">
-            <el-select v-model="customerForm.position">
+            <el-select v-model="customerForm.position" placeholder="请选择">
               <el-option label="普通员工" value="普通员工"></el-option>
               <el-option label="中层管理" value="中层管理"></el-option>
               <el-option label="高层管理" value="高层管理"></el-option>
@@ -96,7 +94,7 @@
             <el-input v-model.number="customerForm.monthly"></el-input>
           </el-form-item>
           <el-form-item label="客户来源" prop="source">
-            <el-select v-model="customerForm.source">
+            <el-select v-model="customerForm.source" placeholder="请选择">
               <el-option label="渠道" value="渠道"></el-option>
               <el-option label="一手客户" value="一手客户"></el-option>
             </el-select>
@@ -106,6 +104,7 @@
           </el-form-item>
         </el-form>
       </el-tab-pane>
+
       <el-tab-pane label="证件信息" name="certificate">
         <el-form :model="certificateForm" :rules="certificateFormRules" ref="certificateForm" label-width="120px" class="certificateForm">
           <el-form-item label="客户姓名" prop="name">
@@ -134,19 +133,22 @@
 </template>
 
 <script>
+import {getDepartmentInfos,submitCustomer,submitCredentials} from '../api/api'
 export default {
   name: "add-client",
   data() {
-    let checkPhone = (rule, value, callback) => {
+    // 验证手机号
+    let checkPhone=(rule,value,callback)=>{
       let regPhone = /^1[3|4|5|7}8][0-9]\d{4,8}$/;
-      if (value === "") {
-        callback(new Error("请输入手机号"));
-      } else if (!regPhone.test(value) || value.length != 11) {
-        callback(new Error("请输入正确的手机号"));
-      } else {
-        callback();
+      if(value===""){
+        callback(new Error("手机号不能为空"))
+      }else if(!regPhone.test(value)){
+        callback(new Error("请输入正确的手机号"))
+      }else{
+        callback()
       }
     };
+    // 验证身份证号
     let checkID = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入身份证号"));
@@ -370,7 +372,8 @@ export default {
         callback(new Error("请输入正确的身份证号"));
       }
     };
-    let checkPlate = (rule, value, callback) => {
+    // 验证车牌号
+    let checkPlate=(rule,value,callback)=>{
       let regPlane = /^[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$/;
       if (value === "") {
         callback(new Error("请输入车牌号"));
@@ -379,10 +382,10 @@ export default {
       } else {
         callback();
       }
-    };
-    return {
-      activeName: "basic",
-      //客户表
+    }
+    return{
+      activeName:"basic",
+      // 客户表
       customerForm: {
         name: "",
         group: "",
@@ -408,46 +411,46 @@ export default {
         group: [{ required: true, message: "请选择组别", trigger: "change" }],
         staff: [{ required: true, message: "请选择组别", trigger: "change" }],
         name: [
-          { required: true, message: "请输入客户姓名", trigger: "blur" },
-          { min: 2, max: 5, message: "长度在 2 到 5 个字符", trigger: "blur" }
-        ],
+              { required: true, message: "请输入客户姓名", trigger: "blur" },
+              { min: 2, max: 5, message: "长度在 2 到 5 个字符", trigger: "blur" }
+            ],
         sex: [{ required: true, message: "请选择性别", trigger: "change" }],
         phone: [{ validator: checkPhone, trigger: "blur" }],
         idCard: [{ validator: checkID, trigger: "blur" }],
         age: [
-          {
-            type: "number",
-            required: true,
-            message: "请输入年龄",
-            trigger: "blur"
-          }
-        ],
+              {
+                type: "number",
+                required: true,
+                message: "请输入年龄",
+                trigger: "blur"
+              }
+            ],
         marital: [
-          { required: true, message: "请选择婚姻状况", trigger: "change" }
-        ],
+              { required: true, message: "请选择婚姻状况", trigger: "change" }
+            ],
         education: [
-          { required: true, message: "请选择学历", trigger: "change" }
-        ],
+              { required: true, message: "请选择学历", trigger: "change" }
+            ],
         registrationAdd: [
-          { required: true, message: "请填入信息", trigger: "blur" }
-        ],
+              { required: true, message: "请填入信息", trigger: "blur" }
+            ],
         address: [{ required: true, message: "请填入信息", trigger: "blur" }],
         housingType: [
-          { required: true, message: "请选择房屋类型", trigger: "change" }
-        ],
+              { required: true, message: "请选择房屋类型", trigger: "change" }
+            ],
         company: [{ required: true, message: "请填入信息", trigger: "blur" }],
         comType: [{ required: true, message: "请填入信息", trigger: "blur" }],
         industry: [{ required: true, message: "请填入信息", trigger: "blur" }],
         position: [
-          { required: true, message: "请选择职位", trigger: "change" }
-        ],
+              { required: true, message: "请选择职位", trigger: "change" }
+            ],
         comAdd: [{ required: true, message: "请填入信息", trigger: "blur" }],
         source: [{ required: true, message: "请填入信息", trigger: "blur" }],
         monthly: [
-          { required: true, message: "请填入信息" },
-          { type: "number", message: "收入必须为数字值" }
-        ]
-      },
+              { required: true, message: "请填入信息" },
+              { type: "number", message: "收入必须为数字值" }
+            ]
+          },
       //证件
       certificateForm: {
         cusromerId: "",
@@ -489,7 +492,7 @@ export default {
       departmentInfos: "",
       groups: [],
       staffs: []
-    };
+    }
   },
   methods: {
     computeAge: function() {
@@ -497,41 +500,38 @@ export default {
       this.customerForm.age = new Date().getFullYear() - yyyy;
     },
     submitCustomerForm: function(formName) {
-      var _this = this;
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          //alert("submit!");
-          _this.certificateForm.name = _this.customerForm.name;
-          submitCustomer(this, this.customerForm).then(data => {
-            if (data) {
-              _this.activeName = "certificate";
-              _this.certificateForm.cusromerId = data.code;
-            }
-          });
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
+    var _this = this;
+    this.$refs[formName].validate(valid => {
+      if (valid) {
+        _this.certificateForm.name = _this.customerForm.name;
+        submitCustomer(this, this.customerForm).then(data => {
+          if (data) {
+            _this.activeName = "certificate";
+            _this.certificateForm.cusromerId = data.code;
+          }
+        });
+      } else {
+        return false;
+      }
+    });
+  },
     submitcertificateForm: function(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          // alert("submit!");
-          submitCredentials(
-            this,
-            this.certificateForm.cusromerId,
-            this.certificateForm
-          );
-        } else {
-          this.$message({
-            message: "请填写正确的信息",
-            type: "warning"
-          });
-          return false;
-        }
-      });
-    }
+   this.$refs[formName].validate(valid => {
+     if (valid) {
+       submitCredentials(
+         this,
+         this.certificateForm.cusromerId,
+         this.certificateForm
+       );
+     } else {
+       this.$message({
+         message: "请填写正确的信息",
+         type: "warning"
+       });
+       return false;
+     }
+   });
+ }
   },
   mounted() {
     getDepartmentInfos(this).then(data => {

@@ -34,9 +34,15 @@
                 <span>车辆管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="2-1">选项1</el-menu-item>
-                <el-menu-item index="2-2">选项2</el-menu-item>
-                <el-menu-item index="2-3">选项3</el-menu-item>
+                <el-menu-item index="2-1">
+                  <router-link :to="{path:'/home/gpsInstall'}">GPS安装</router-link>
+                </el-menu-item>
+                <el-menu-item index="2-2">
+                  <router-link :to="{path:'/home/gpsSelect'}">GPS查询</router-link>
+                </el-menu-item>
+                <el-menu-item index="2-3">
+                  <router-link :to="{path:'/home/credit'}">贷中状态</router-link>
+                </el-menu-item>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="3">

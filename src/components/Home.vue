@@ -7,7 +7,7 @@
      <div class="bread">
        <el-breadcrumb separator-class="el-icon-arrow-right" >
          <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-         <el-breadcrumb-item v-for="(item,index) in breadcrumb" :to="item.path" :keys="index">{{item.value}}</el-breadcrumb-item>
+         <el-breadcrumb-item v-for="(item,index) in breadcrumb" :to="item.path" :key="index">{{item.value}}</el-breadcrumb-item>
        </el-breadcrumb>
      </div>
      <router-view></router-view>
@@ -29,21 +29,8 @@ export default {
     MyHeader,
     MyLeft
   },
-  /*beforeRouteUpdata(to,from,next){
-    this.breadcrumb[0] = {
-      value: to.meta.title,
-      path: to.path
-    };
-    next()
-  },*/
   watch:{
     "$route":"fetchDate"
-  },
-  mounted(){
-  /*  this.breadcrumb[0]={
-      value:this.$route.meta.title,
-      path:this.$route.path
-    };*/
   },
   methods: {
     fetchDate(){
