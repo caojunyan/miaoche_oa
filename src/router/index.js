@@ -11,6 +11,8 @@ import AddClient from '../components/AddClient'
 import GpsInstall from '../components/GpsInstall'
 import GpsSelect from '../components/GpsSelect'
 import Credit from '../components/Credit'
+// 详细信息
+import Info from '../components/Info'
 Vue.use(Router)
 
 export default new Router({
@@ -41,9 +43,9 @@ export default new Router({
           },
         },
         {
-          path:'selectClient',
-          name:'selectClient',
-          component:SelectClient,
+          path: 'selectClient',
+          name: 'selectClient',
+          component: SelectClient,
           meta: {
             title: '客户查询'
           },
@@ -54,6 +56,14 @@ export default new Router({
           component:AddClient,
           meta: {
             title: '客户录入'
+          },
+        },
+        {
+          path:'info',
+          name:'Info',
+          component:Info,
+          meta: {
+            title: '客户详情'
           },
         },
         {

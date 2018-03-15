@@ -18,7 +18,7 @@
         style="width: 100%"
         v-loading="loading">
         <el-table-column
-          prop="order"
+          prop="id"
           label="#"
           width="40"
         >
@@ -83,7 +83,7 @@
         search: {
           clientName: ""
         },
-        total:2
+        total:1
       }
     },
     methods: {
@@ -112,14 +112,15 @@
       },
       // init
       init: function(page) {
-        /*this.loading = true;*/
+        this.loading = true;
         let _this = this;
         let pageNum = page ? page : 1;
         // console.log(type);
         //状态分类问题:客户查询all,风控，收费，进件，回款
         switch (this.$route.name) {
-          case "Client":
+          case "selectClient":
             getCustomers(this, pageNum).then(data => {
+              console.log(data)
               _this.client = data.data;
               _this.total = data.meta.pagination.total;
               this.loading = false;
@@ -147,11 +148,10 @@
   @import "../common/css/base.styl"
 .select
   .table
-    height 620px
+    min-height 600px
   .page
     width 900px
     margin 0 auto
-    margin-top 20px
     pagination
       width 400px
 </style>

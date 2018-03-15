@@ -8,15 +8,17 @@
         <span class="repassword">
           <router-link :to="{path:'/home/changePass'}">修改密码</router-link>
         </span>
-        <span>
-          <router-link :to="{path:'/'}">退出</router-link>
+        <span @click="out">
+          退出
         </span>
       </span>
     </div>
 </template>
 
 <script>
-    export default {
+  import {loginOut,getUser} from "../api/api";
+
+  export default {
       name: "vue-header",
       data(){
           return {
@@ -24,12 +26,22 @@
           }
         },
       mounted(){
-        this.getUsername()
+        getUser(this).then((data)=>{
+          if (data) {
+            this.username = data.data.name;
+          }
+        })
       },
       methods:{
         // 读取用户名
-        getUsername(){
-          this.username=localStorage.getItem('loginname')
+      /*  getUsername(){
+          this.username=localStorage.getItem('email')
+        },*/
+        // 退出登陆
+        out(){
+          loginOut(this).then(function(){
+
+          })
         }
       }
     }
@@ -59,6 +71,7 @@
       span
         display inline-block
         padding-right 20px
+        cursor pointer
         a
           color:#fff
 

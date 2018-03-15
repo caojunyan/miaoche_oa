@@ -1,4 +1,49 @@
-import axios from 'axios'
+import axios from './httpConfig';
+import qs from 'qs';
+
+
+// 用户登录
+export const getAdmin=(_this,params)=>{
+  return axios.post('/authorizations',params).then(function(res){
+    console.log(res)
+    localStorage.setItem("user_name",params.email);
+    localStorage.setItem("user_id",res.data.data.id);
+    localStorage.setItem("user_token",res.data.data.token);
+    return true;
+  }).catch(function(error){
+    this.$message({
+      message:"登录失败",
+      type:"warming"
+    })
+  })
+}
+//用户退出清除缓存
+export const loginOut=(_this)=>{
+  return axios.delete('/authorizations/current',{
+    headers:{
+      'Authorization': 'Bearer ' + localStorage.user_token
+    }
+  }).then(function(res){
+    localStorage.clear();
+    _this.$message('退出成功');
+    _this.$router.push({
+      name:'Login'
+    });
+  }).catch(error=>{
+    localStorage.clear();
+    _this.$message('退出成功');
+    _this.$router.push({
+      name:'Login'
+    });
+  })
+}
+//读取用户名
+export const getUser=(_this)=>{
+  return axios.get('/user').then(res=>{
+
+    return res.data;
+  })
+}
 
 /*
   获取业务部

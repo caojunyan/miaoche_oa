@@ -119,10 +119,10 @@
     },
     methods: {
       handleOpen(key, keyPath) {
-        console.log(key, keyPath);
+
       },
       handleClose(key, keyPath) {
-        console.log(key, keyPath);
+
       },
       toUrl: function(item) {
         this.$router.push({ name: item.name });
