@@ -33,14 +33,10 @@
         })
       },
       methods:{
-        // 读取用户名
-      /*  getUsername(){
-          this.username=localStorage.getItem('email')
-        },*/
         // 退出登陆
         out(){
-          loginOut(this).then(function(){
-
+          loginOut(this).then(function(res){
+              console.log(res)
           })
         }
       }

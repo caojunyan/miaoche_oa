@@ -1,58 +1,67 @@
 <template>
   <div class="changepass">
-    <el-form :model="ruleForm"  ref="ruleForm" label-width="100px" class="demo-ruleForm">
+    <el-form :model="ruleForm"  ref="ruleForm" label-width="100px" class="demo-ruleForm" :rules="ruleFormRules">
       <h2>修改密码</h2>
-      <el-form-item label="旧密码" prop="oldPass">
-        <el-input v-model="ruleForm.oldPass"></el-input>
+      <el-form-item label="旧密码" prop="old_password">
+        <el-input v-model="ruleForm.old_password"></el-input>
       </el-form-item>
-      <el-form-item label="新密码" prop="newPass">
-        <el-input v-model="ruleForm.newPass"></el-input>
+      <el-form-item label="新密码" prop="password">
+        <el-input v-model="ruleForm.password"></el-input>
       </el-form-item>
-      <el-form-item label="确认新密码" prop="confirmNewPass">
-        <el-input v-model="ruleForm.confirmNewPass"></el-input>
+      <el-form-item label="确认新密码" prop="password_confirmation">
+        <el-input v-model="ruleForm.password_confirmation"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="confirm">确定</el-button>
+        <el-button type="primary" @click="confirm('ruleForm')">确定</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+  import {changePSW} from "../api/api"
   export default {
     data() {
+      var validatePass=(rule,value,callback)=>{
+        if(value==""){
+          callback(new Error("密码不能为空"))
+        }else{
+          if(this.ruleForm.password_confirmation!==""){
+            this.$refs.password.validateField("confirmNewPass");
+          }
+          callback()
+        }
+      };
+      var validatePass2=(rule,value,callback)=>{
+        if(value==""){
+          callback(new Error("请再次输入密码"))
+        }else if(value!=this.ruleForm.password){
+          callback(new Error("两次输入密码不一致"))
+        }else{
+          callback()
+        }
+      }
       return {
         ruleForm: {
-          oldPass: '',
-          newPass:'',
-          confirmNewPass:''
+          old_password: '',
+          password:'',
+          password_confirmation:''
+        },
+        ruleFormRules:{
+          old_password: [
+            { required: true, message: "请输入旧密码", trigger: "blur" }
+          ],
+          password:[{validator:validatePass,trigger:"blur"}],
+          password_confirmation:[{validator:validatePass2,trigger:"blur"}]
         }
       };
     },
     methods: {
-      confirm() {
-        var oldPass=this.ruleForm.oldPass;
-        var newPass=this.ruleForm.newPass;
-        var confirmNewPass=this.ruleForm.confirmNewPass;
-        var pass=localStorage.getItem('password');
-        if(oldPass==pass&&newPass==confirmNewPass!=((newPass==""||newPass==null))){
-          this.$alert('修改密码成功，回到首页', '', {
-            confirmButtonText: '确定',
-            callback: action => {
-             this.$router.push({path:'/home'})
-            }
-          });
-        }else if(oldPass!=pass){
-          this.$alert('原密码输入有误', '', {
-            confirmButtonText: '确定',
-          });
-          return false
-        }else{
-          this.$alert('两次密码输入不一致', '', {
-            confirmButtonText: '确定',
-          });
-          return false
-        }
+      confirm(ruleForm) {
+        changePSW(this,this.ruleForm).then(res=>{
+
+
+        })
       },
     }
   }
@@ -61,6 +70,7 @@
 <style scoped lang="stylus">
 @import "../common/css/base.styl"
   .changepass
+    width 750px
     .el-form
       margin-left 300px
       margin-top 150px

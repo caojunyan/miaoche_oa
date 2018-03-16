@@ -5,7 +5,6 @@ import qs from 'qs';
 // 用户登录
 export const getAdmin=(_this,params)=>{
   return axios.post('/authorizations',params).then(function(res){
-    console.log(res)
     localStorage.setItem("user_name",params.email);
     localStorage.setItem("user_id",res.data.data.id);
     localStorage.setItem("user_token",res.data.data.token);
@@ -29,6 +28,7 @@ export const loginOut=(_this)=>{
     _this.$router.push({
       name:'Login'
     });
+    return res
   }).catch(error=>{
     localStorage.clear();
     _this.$message('退出成功');
@@ -40,11 +40,24 @@ export const loginOut=(_this)=>{
 //读取用户名
 export const getUser=(_this)=>{
   return axios.get('/user').then(res=>{
-
     return res.data;
   })
 }
-
+// 修改密码
+export const changePSW = (_this, params) => {
+  return axios.put('user/password', params, {
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.user_token
+    }
+  }).then((res) => {
+    _this.$message({
+      message: '密码修改成功',
+      type: 'success'
+    })
+  }).catch(error=>{
+    console.log(error)
+  })
+};
 /*
   获取业务部
 */

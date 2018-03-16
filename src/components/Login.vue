@@ -45,26 +45,6 @@
             this.$router.push({ name: "Home" });
           }
         })
-
-
-
-/*        // 保存账号
-        var name=this.ruleForm.email;
-        // 保存密码
-        var pass=this.ruleForm.password;
-        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
-        if(!myreg.test(name)){
-          alert("请输入正确的用户名");
-          return false
-        }else if(pass==''||pass.length<3) {
-          alert("密码错误");
-          return false
-        }else{
-          // 缓存用户名,密码
-          localStorage.setItem('loginname',name);
-          localStorage.setItem('password',pass);
-          this.$router.push({path:'/home'})
-        }*/
       },
     }
   }
