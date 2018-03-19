@@ -193,9 +193,11 @@
     },
     mounted() {
       selectCustomers(this,this.$route.query.customer).then(data=>{
-        console.log(data)
         for(var item in data){
-
+         /* console.log(data[item].id==this.$route.query.customer)*/
+          if(data[item].id==this.$route.query.customer){
+            this.customerForm=data[item]
+          }
         }
       })
     }
