@@ -59,20 +59,19 @@
     methods: {
       confirm(ruleForm) {
         changePSW(this,this.ruleForm).then(res=>{
-          console.log(res.status)
-        }).catch((error)=>{
-          console.log(error.status_code)
-          if(error.status==401){
-            this.$message({
-              message: '原始密码输入有误',
-              type: 'warning'
-            })
-          }else if(error.status_code==422){
-            this.$message({
-              message: '原始密码和新密码不能相同',
-              type: 'warning'
-            })
+          console.log(res)
+          if(res.status_code == 401){
+              this.$message({
+                message: '原始密码输入有误',
+                type: 'warning'
+              })
+          }else if(res.status_code == 422){
+              this.$message({
+                message: '原始密码和新密码不能相同',
+                type: 'warning'
+              })
           }
+        }).catch((error)=>{
         })
       },
     }

@@ -43,6 +43,11 @@
         getAdmin(this,this.user).then(data => {
           if (data) {
             this.$router.push({ name: "Home" });
+          }else{
+            this.$message({
+              message:"密码或用户名错误",
+              type:"warming"
+            })
           }
         })
       },

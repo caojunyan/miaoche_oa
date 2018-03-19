@@ -61,7 +61,10 @@ axios.interceptors.response.use(
           Message.error('链接服务器失败，请重新尝试');
           break;
         case 422:
-          Message.erroro(error.response.errors.message)
+        /*  Message.error({
+            message:error
+          })*/
+       /*   Message.erroro(error.response.errors.message)*/
           break;
       }
     }

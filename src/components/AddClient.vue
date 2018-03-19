@@ -7,7 +7,6 @@
           <el-form-item label="客户姓名" prop="name">
             <el-input v-model="customerForm.name"></el-input>
           </el-form-item>
-
           <el-form-item label="业务员" prop="staff">
             <el-select v-model="customerForm.group" placeholder="请选择组别">
               <el-option v-for="(group,index) in groups" :label="group" :value="group" :key="index"></el-option>
@@ -16,7 +15,6 @@
               <el-option v-for="(staff,index) in staffs" :label="staff" :value="staff" :key="index"></el-option>
             </el-select>
           </el-form-item>
-
           <el-form-item label="性别" prop="sex">
             <el-select v-model="customerForm.sex">
               <el-option label="男" value="男"></el-option>
@@ -44,7 +42,7 @@
               <el-option label="中专（含一下）" value="中专（含一下）"></el-option>
               <el-option label="大专" value="大专"></el-option>
               <el-option label="本科" value="本科"></el-option>
-              <el-option label="硕士（及以上）本科" value="硕士（及以上）"></el-option>
+              <el-option label="硕士（及以上）" value="硕士（及以上）"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="户籍地址" prop="registrationAdd">
