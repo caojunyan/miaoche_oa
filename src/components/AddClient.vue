@@ -7,6 +7,7 @@
           <el-form-item label="客户姓名" prop="name">
             <el-input v-model="customerForm.name"></el-input>
           </el-form-item>
+
           <el-form-item label="业务员" prop="staff">
             <el-select v-model="customerForm.group" placeholder="请选择组别">
               <el-option v-for="(group,index) in groups" :label="group" :value="group" :key="index"></el-option>
@@ -15,6 +16,7 @@
               <el-option v-for="(staff,index) in staffs" :label="staff" :value="staff" :key="index"></el-option>
             </el-select>
           </el-form-item>
+
           <el-form-item label="性别" prop="sex">
             <el-select v-model="customerForm.sex">
               <el-option label="男" value="男"></el-option>
@@ -545,6 +547,7 @@ export default {
   },
   watch: {
     "customerForm.group": function(val) {
+      console.log(val)
       this.customerForm.staff = "";
       this.staffs = this.departmentInfos[val];
     }

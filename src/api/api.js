@@ -54,8 +54,10 @@ export const changePSW = (_this, params) => {
       message: '密码修改成功',
       type: 'success'
     })
+    return res
   }).catch(error=>{
     console.log(error)
+    return error
   })
 };
 /*
@@ -113,3 +115,10 @@ export const getCustomers = (_this, page) => {
     })
   })
 };
+
+// 查询客户信息
+export const selectCustomers=(_this,params)=>{
+  return axios.get("/customers",params).then(res=>{
+    return res.data.data
+  })
+}

@@ -74,7 +74,7 @@
 </template>
 
 <script>
-  import { getCustomers } from "../api/api";
+  import { getCustomers,selectCustomers } from "../api/api";
   export default {
     data() {
       return {
@@ -89,9 +89,19 @@
     methods: {
       // 查询
       searchClient() {
+        selectCustomers(this,this.search.clientName).then(data=>{
+            for(let i=0;i<data.length;i++){
+              if(this.search.clientName==data[i].name){
+                this.client.push(data[i])
+              }
+              return this.client;
+            }
+        })
       },
       // 显示全部
-      showAll(){},
+      showAll(){
+        this.init();
+      },
       // 查看
       handleCheck: function(id) {
         this.$router.push({
@@ -120,9 +130,9 @@
         switch (this.$route.name) {
           case "selectClient":
             getCustomers(this, pageNum).then(data => {
-              _this.client = data.data;
-              _this.total = data.meta.pagination.total;
-              this.loading = false;
+                _this.client = data.data;
+                _this.total = data.meta.pagination.total;
+                this.loading = false;
             });
             break;
           case "RickControl":
