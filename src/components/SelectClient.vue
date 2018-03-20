@@ -130,6 +130,7 @@
         switch (this.$route.name) {
           case "selectClient":
             getCustomers(this, pageNum).then(data => {
+              console.log(data)
                 _this.client = data.data;
                 _this.total = data.meta.pagination.total;
                 this.loading = false;

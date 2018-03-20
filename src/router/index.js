@@ -13,6 +13,10 @@ import GpsSelect from '../components/GpsSelect'
 import Credit from '../components/Credit'
 // 详细信息
 import Info from '../components/Info'
+import UploadSec from '../components/UploadSec'
+
+// GPS
+import CarInfo from '../components/CarInfo'
 Vue.use(Router)
 
 export default new Router({
@@ -67,11 +71,27 @@ export default new Router({
           },
         },
         {
+          path:'uploadSec',
+          name:'UploadSec',
+          component:UploadSec,
+          meta: {
+            title: '二次录入'
+          },
+        },
+        {
           path:'gpsInstall',
           name:'gpsInstall',
           component:GpsInstall,
           meta: {
             title: 'GPS安装'
+          },
+        },
+        {
+          path:'carinfo',
+          name:'CarInfo',
+          component:CarInfo,
+          meta: {
+            title: '车辆信息'
           },
         },
         {

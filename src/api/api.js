@@ -122,3 +122,23 @@ export const selectCustomers=(_this,params)=>{
     return res.data.data
   })
 }
+
+// carGPS  list
+export const getCarsGPS=(_this,page)=>{
+  return axios.get("/carGps?page="+page).then(res=>{
+    return res.data;
+  }).catch(err=>{
+    _this.$message({
+      message:"获取失败",
+      type:"warming"
+    })
+  })
+}
+
+// 车辆信息
+export const selectCar=(_this,params)=>{
+  return axios.get('/cars',params).then(res=>{
+    console.log(res)
+    return res.data.data
+  })
+}
