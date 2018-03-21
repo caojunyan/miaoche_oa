@@ -125,7 +125,6 @@
               DISPLACEMENT: "",
               MODELS: "",
               MANUFACTURER: "",
-              BRAND: "",
               DISCHARGE: ""
             }
           }
@@ -136,10 +135,7 @@
         },
         mounted(){
           selectCar(this,this.$route.query.carId).then(data=>{
-            console.log(data)
             for(var item in data){
-              console.log(data[item].id)
-              console.log(this.$route.query.carId)
               if(data[item].id==this.$route.query.carId){
                 this.carForm=data[item]
               }

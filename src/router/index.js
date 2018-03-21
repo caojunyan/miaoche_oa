@@ -11,6 +11,19 @@ import AddClient from '../components/AddClient'
 import GpsInstall from '../components/GpsInstall'
 import GpsSelect from '../components/GpsSelect'
 import Credit from '../components/Credit'
+// 风控管理
+import riskcontrol from "../components/RiskControl"
+// 财务管理
+import charge from "../components/Charge"
+import customerPay from "../components/CustomerPay"
+import finance from "../components/Finance"
+// 贷后管理页面
+import overdue from "../components/Overdue"
+import short from "../components/Short"
+import processed from "../components/Processed"
+// 融资管理
+import stock from "../components/Stock"
+import receivable from "../components/receivable"
 // 详细信息
 import Info from '../components/Info'
 import UploadSec from '../components/UploadSec'
@@ -108,6 +121,79 @@ export default new Router({
           component:Credit,
           meta: {
             title: '贷中状态'
+          },
+        },
+        {
+          path:'riskcontrol',
+          name:'riskcontrol',
+          component:riskcontrol,
+          meta: {
+            title: '风控表'
+          },
+        },
+        {
+          path:'charge',
+          name:'charge',
+          component:charge,
+          meta: {
+            title: '收费'
+          },
+        },
+        {
+          path:'customerPay',
+          name:'customerPay',
+          component:customerPay,
+          meta: {
+            title: '客户还款'
+          },
+        },
+        {
+          path:'finance',
+          name:'finance',
+          component:finance,
+          meta: {
+            title: '融资还款'
+          },
+        },
+
+        {
+          path:'overdue',
+          name:'overdue',
+          component:overdue,
+          meta: {
+            title: '逾期客户'
+          },
+        },
+        {
+          path:'short',
+          name:'short',
+          component:short,
+          meta: {
+            title: '缺件客户'
+          },
+        },
+        {
+          path:'processed',
+          name:'processed',
+          component:processed,
+          meta: {
+            title: '已处理的客户'
+          },
+        },
+        {
+          path:'stock',
+          name:'stock',
+          component:stock,
+          meta: {
+            title: '进件表'
+          },
+        },
+        {
+          path:'receivable',
+          name:'receivable',
+          component:receivable,
+          meta: {
+            title: '回款确认'
           },
         },
       ]

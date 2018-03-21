@@ -23,7 +23,7 @@
         <el-table-column label="备注" prop="note">
         </el-table-column>
         <el-table-column label="操作" >
-          <template scope="scope">
+          <template slot-scope="scope">
             <el-button size="small" @click="handleCheck(scope.row.id)">查看</el-button>
             <el-button size="small" @click="installinfo(scope.row.id)">GPS安装</el-button>
           </template>
@@ -38,7 +38,7 @@
         <el-form :model="GPSForm" :rules="GPSFormRules" ref="GPSForm" label-width="80px">
           <el-form-item label="执行人" prop="staff">
             <el-select v-model="GPSForm.staff" placeholder="请选择">
-              <el-option v-for="item in staffs" :value="item.value" :label="item.value"></el-option>
+              <el-option v-for="(item,index) in staffs" :value="item.value" :label="item.value" :key="index"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="融资方" prop="financiers">
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-  import { getCarsGPS } from "../api/api";
+  import { getCarsGPS, submitCarGPS} from "../api/api";
     export default {
         name: "gps-install",
         data(){
@@ -140,7 +140,20 @@
           // 翻页
           handleCurrentChange:function(val){},
           submitForm:function(formName){
-
+              /*this.$refs[formName].validator(valid=>{*/
+                if(this.GPSForm!=""){
+                  console.log(this.GPSForm)
+                  submitCarGPS(this,this.$route.query.carId,this.GPSForm).then(res=>{
+                    console.log(res)
+                  })
+                  this.dialogFormVisible=false;
+                }else{
+                  this.$message({
+                    message:"请填写正确信息",
+                    type:'warming'
+                  })
+                }
+             /* })*/
           },
           init:function(page){
             let pageNum=page?page:1;
@@ -160,10 +173,9 @@
           // GPS安装
           installinfo:function(id){
             this.dialogFormVisible=true;
-
           }
         },
-      mounted(){
+        mounted(){
           this.init()
       }
     }

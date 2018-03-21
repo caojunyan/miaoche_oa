@@ -138,7 +138,14 @@ export const getCarsGPS=(_this,page)=>{
 // 车辆信息
 export const selectCar=(_this,params)=>{
   return axios.get('/cars',params).then(res=>{
-    console.log(res)
     return res.data.data
+  })
+}
+
+// GPS安装
+export const submitCarGPS=(_this,id,data)=>{
+  return axios.post('/cars/'+id+"/carGps",data).then(res=>{
+    _this.$message('创建成功')
+    return res.data
   })
 }

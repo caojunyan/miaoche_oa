@@ -53,9 +53,9 @@
                 <span>风控管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="3-1">选项1</el-menu-item>
-                <el-menu-item index="3-2">选项2</el-menu-item>
-                <el-menu-item index="3-3">选项3</el-menu-item>
+                <el-menu-item index="3-1">
+                  <router-link :to="{path:'/home/riskcontrol'}">风控表</router-link>
+                </el-menu-item>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="4">
@@ -66,9 +66,15 @@
                 <span>财务管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="4-1">选项1</el-menu-item>
-                <el-menu-item index="4-2">选项2</el-menu-item>
-                <el-menu-item index="4-3">选项3</el-menu-item>
+                <el-menu-item index="4-1">
+                  <router-link :to="{path:'/home/charge'}">收费</router-link>
+                </el-menu-item>
+                <el-menu-item index="4-2">
+                  <router-link :to="{path:'/home/customerPay'}">客户还款</router-link>
+                </el-menu-item>
+                <el-menu-item index="4-3">
+                  <router-link :to="{path:'/home/finance'}">融资还款</router-link>
+                </el-menu-item>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="5">
@@ -79,9 +85,15 @@
                 <span>贷后管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="5-1">选项1</el-menu-item>
-                <el-menu-item index="5-2">选项2</el-menu-item>
-                <el-menu-item index="5-3">选项3</el-menu-item>
+                <el-menu-item index="5-1">
+                  <router-link :to="{path:'/home/overdue'}">逾期客户</router-link>
+                </el-menu-item>
+                <el-menu-item index="5-2">
+                  <router-link :to="{path:'/home/short'}">缺件客户</router-link>
+                </el-menu-item>
+                <el-menu-item index="5-3">
+                  <router-link :to="{path:'/home/processed'}">已处理的客户</router-link>
+                </el-menu-item>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="6">
@@ -92,9 +104,12 @@
                 <span>融资管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="6-1">选项1</el-menu-item>
-                <el-menu-item index="6-2">选项2</el-menu-item>
-                <el-menu-item index="6-3">选项3</el-menu-item>
+                <el-menu-item index="6-1">
+                  <router-link :to="{path:'/home/stock'}">进件表</router-link>
+                </el-menu-item>
+                <el-menu-item index="6-2">
+                  <router-link :to="{path:'/home/receivable'}">回款确认</router-link>
+                </el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
